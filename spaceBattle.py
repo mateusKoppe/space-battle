@@ -1,6 +1,7 @@
 import pygame
 
 from player import Player
+from enemy import Enemy
 from configs import gameConfigs
 from projectile import ProjectileList
 
@@ -15,6 +16,7 @@ pygame.display.set_caption(gameConfigs["title"])
 run = True
 
 player = Player(screen)
+enemy = Enemy(screen)
 while run:
     clock.tick(60)
     screen.fill((0, 0, 0))
@@ -22,6 +24,7 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
+    enemy.update()
     player.update()
     ProjectileList.update()
     pygame.display.update()
