@@ -27,6 +27,8 @@ class Enemy(Ship):
     LEFT = "LEFT"
     RIGHT = "RIGHT"
     direction = random.choice([LEFT, RIGHT])
+    directionTime = 0
+    speed = 4
 
     def __init__(self, screen, pos):
         image = pygame.image.load("assets/enemy-ship.png")
@@ -39,17 +41,36 @@ class Enemy(Ship):
             if isInX and isInY:
                 EnemiesList.remove(self)
 
-    def update(self):
+    def toggleDirection(self):
+        if self.direction == Enemy.LEFT:
+            self.direction = Enemy.RIGHT
+        elif self.direction == Enemy.RIGHT:
+            self.direction = Enemy.LEFT
+    
+    def resetDirectionTime(self):
+        self.directionTime = 0
+
+    def steep(self):
         if (self.direction == Enemy.LEFT):
             self.x -= self.speed
         elif (self.direction == Enemy.RIGHT):
             self.x += self.speed
 
-        if (self.x >= gameConfigs["width"] - self.width):
-            self.direction = Enemy.LEFT
+    def update(self):
+        self.steep()
+        self.directionTime += 1
 
-        if (self.x <= 0):
-            self.direction = Enemy.RIGHT
+        isInLeftBorder = self.x <= 0
+        isInRigthBorder = self.x >= gameConfigs["width"] - self.width
+        if isInLeftBorder or isInRigthBorder:
+            self.toggleDirection()
+
+        maxRand = gameConfigs["width"] // 2 + (self.directionTime * 3) // 1
+        valueToToggle = random.randint(gameConfigs["width"] // 3, maxRand)
+        print(self.directionTime, valueToToggle)
+        if valueToToggle > gameConfigs["width"]:
+            self.toggleDirection()
+            self.resetDirectionTime()
 
         self.check_dead()
 
