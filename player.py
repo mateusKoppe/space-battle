@@ -11,8 +11,6 @@ class Player(Ship):
         super().__init__(screen, (x, y), image)
 
     def update(self):
-        global projectiles
-
         self.gunLastShot += 1
 
         keys = pygame.key.get_pressed()
