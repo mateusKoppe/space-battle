@@ -26,4 +26,4 @@ class Player(Ship):
             projectile = Projectile(self.screen, (self.x + self.width // 2, self.y), Projectile.UP)
             ProjectileList.projectiles.append(projectile)
 
-        self.render()
+        super().update()

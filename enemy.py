@@ -24,6 +24,10 @@ class EnemiesList():
         EnemiesList.add(enemy)
 
 class Enemy(Ship):
+    LEFT = "LEFT"
+    RIGHT = "RIGHT"
+    direction = random.choice([LEFT, RIGHT])
+
     def __init__(self, screen, pos):
         image = pygame.image.load("assets/enemy-ship.png")
         super().__init__(screen, pos, image)
@@ -36,11 +40,17 @@ class Enemy(Ship):
                 EnemiesList.remove(self)
 
     def update(self):
-        if (self.x > gameConfigs["width"]):
-            self.x = 0
+        if (self.direction == Enemy.LEFT):
+            self.x -= self.speed
+        elif (self.direction == Enemy.RIGHT):
+            self.x += self.speed
 
-        self.x += self.speed
+        if (self.x >= gameConfigs["width"] - self.width):
+            self.direction = Enemy.LEFT
+
+        if (self.x <= 0):
+            self.direction = Enemy.RIGHT
 
         self.check_dead()
 
-        self.render()
+        super().update()
