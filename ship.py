@@ -1,8 +1,8 @@
 from configs import gameConfigs
 
 class Ship:
-    width = 71
-    height = 85
+    width = 40
+    height = 48
     gunLastShot = 0
     gunDelay = 25
     speed = 5
@@ -19,6 +19,7 @@ class Ship:
         if (self.x <= 0):
             self.x = 0
 
+        print(self.speed)
         self.render()
 
     def render(self):

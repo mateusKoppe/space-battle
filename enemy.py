@@ -31,7 +31,7 @@ class Enemy(Ship):
     speed = 4
 
     def __init__(self, screen, pos):
-        image = pygame.image.load("assets/enemy-ship.png")
+        image = pygame.image.load("assets/images/enemy-ship.png")
         super().__init__(screen, pos, image)
 
     def check_dead(self):
@@ -67,7 +67,7 @@ class Enemy(Ship):
 
         maxRand = gameConfigs["width"] // 2 + (self.directionTime * 3) // 1
         valueToToggle = random.randint(gameConfigs["width"] // 3, maxRand)
-        print(self.directionTime, valueToToggle)
+
         if valueToToggle > gameConfigs["width"]:
             self.toggleDirection()
             self.resetDirectionTime()
