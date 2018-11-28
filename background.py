@@ -9,8 +9,8 @@ class Background:
     positionY = -(4500-600)
     positionXClouds = -100
 
-    image = pygame.image.load("assets/images/brasilia.jpg")
-    # image = pygame.image.load("assets/images/background.jpeg")
+    # image = pygame.image.load("assets/images/brasilia.jpg")
+    image = pygame.image.load("assets/images/background_image.jpg")
     clouds = pygame.image.load("assets/images/backgroundClouds.png")
 
     def init(screen):

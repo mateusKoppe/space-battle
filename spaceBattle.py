@@ -8,6 +8,7 @@ from projectile import ProjectileList, ProjectileEnemiesList
 
 
 pygame.init()
+pygame.mixer.init()
 
 clock = pygame.time.Clock()
 
@@ -31,6 +32,8 @@ while run:
         screen.blit(fontLarge.render("Venceu!", True, (255,255,255)), (gameConfigs["width"]/2 - 240, gameConfigs["height"]/2  - 100))
     
     elif player.lifes<=0:
+        pygame.mixer.music.load("assets/audios/gunshot2.mp3")
+        pygame.mixer.music.play()
         screen.blit(fontLarge.render("Perdeu!", True, (255,255,255)), (gameConfigs["width"]/2 - 240, gameConfigs["height"]/2  - 100))
     
     else:        
