@@ -18,8 +18,7 @@ class Ship:
 
         if (self.x <= 0):
             self.x = 0
-
-        print(self.speed)
+            
         self.render()
 
     def render(self):
