@@ -14,6 +14,9 @@ class ProjectileEnemiesList:
         for projectile in ProjectileEnemiesList.projectiles:
             projectile.update()
 
+    def remove(projectile):
+        ProjectileEnemiesList.projectiles.remove(projectile)
+
 class Projectile:
     UP = "UP"
     DOWN = "DOWN"
