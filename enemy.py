@@ -1,11 +1,12 @@
 import pygame
 import random
 from ship import Ship
-from projectile import Projectile, ProjectileList
+from projectile import Projectile, ProjectileList, ProjectileEnemiesList
 from configs import gameConfigs
 
 class EnemiesList():
     enemies = []
+    lastSpawn = 0
 
     def update():
         for enemy in EnemiesList.enemies:
@@ -13,6 +14,7 @@ class EnemiesList():
 
     def add(enemy):
         EnemiesList.enemies.append(enemy)
+        EnemiesList.lastSpawn = pygame.time.get_ticks()/1000
     
     def remove(enemy):
         EnemiesList.enemies.remove(enemy)
@@ -60,10 +62,18 @@ class Enemy(Ship):
         self.steep()
         self.directionTime += 1
 
+        if (pygame.time.get_ticks()/1000 > EnemiesList.lastSpawn+5):
+            EnemiesList.randomSpawn(self.screen)    
+
+        if random.randint(0,1000) < 20:
+            projectile = Projectile(self.screen, (self.x + self.width // 2, self.y), Projectile.DOWN)
+            ProjectileEnemiesList.projectiles.append(projectile)
+
         isInLeftBorder = self.x <= 0
         isInRigthBorder = self.x >= gameConfigs["width"] - self.width
         if isInLeftBorder or isInRigthBorder:
             self.toggleDirection()
+            
 
         maxRand = gameConfigs["width"] // 2 + (self.directionTime * 3) // 1
         valueToToggle = random.randint(gameConfigs["width"] // 3, maxRand)

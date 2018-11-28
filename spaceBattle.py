@@ -3,7 +3,7 @@ import pygame
 from player import Player
 from enemy import EnemiesList
 from configs import gameConfigs
-from projectile import ProjectileList
+from projectile import ProjectileList, ProjectileEnemiesList
 
 pygame.init()
 
@@ -33,18 +33,24 @@ while run:
     inimigos = fontSmall.render("Tempo: "+str(pygame.time.get_ticks()/1000), True, (255,255,255))
     screen.blit(inimigos, (10,40))
 
-    if len(EnemiesList.enemies)==0:
+    if len(EnemiesList.enemies)<=0:
         screen.fill((0, 0, 0))
         screen.blit(fontLarge.render("Venceu!", True, (255,255,255)), (gameConfigs["width"]/2 - 240, gameConfigs["height"]/2  - 100))
-
+    
+    elif player.lifes<=0:
+        screen.fill((0, 0, 0))
+        screen.blit(fontLarge.render("Perdeu!", True, (255,255,255)), (gameConfigs["width"]/2 - 240, gameConfigs["height"]/2  - 100))
+    
+    else:        
+        player.update()
+        ProjectileList.update()
+        ProjectileEnemiesList.update()
+        EnemiesList.update()
 
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
+            if event.type == pygame.QUIT:
+                run = False
     
-    player.update()
-    ProjectileList.update()
-    EnemiesList.update()
     pygame.display.update()
     
 pygame.quit()

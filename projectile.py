@@ -7,6 +7,13 @@ class ProjectileList:
         for projectile in ProjectileList.projectiles:
             projectile.update()
 
+class ProjectileEnemiesList:
+    projectiles = []
+
+    def update():
+        for projectile in ProjectileEnemiesList.projectiles:
+            projectile.update()
+
 class Projectile:
     UP = "UP"
     DOWN = "DOWN"
