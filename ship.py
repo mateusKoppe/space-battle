@@ -1,8 +1,8 @@
 from configs import gameConfigs
 
 class Ship:
-    width = 40
-    height = 48
+    width = 71
+    height = 85
     gunLastShot = 0
     gunDelay = 25
     speed = 5

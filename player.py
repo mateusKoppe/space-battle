@@ -5,17 +5,20 @@ from configs import gameConfigs
 
 class Player(Ship):
     lifes = 10
+    width = 40
+    height = 48
     def __init__(self, screen):
-        y = gameConfigs["height"] - self.height - 10
-        x = gameConfigs["width"] // 2 - self.width // 2
+        y = gameConfigs["height"] - Player.height - 10
+        x = gameConfigs["width"] // 2 - Player.width // 2
         image = pygame.image.load("assets/images/player-ship.png")
         super().__init__(screen, (x, y), image)
 
     def check_dead(self):
         for projectile in ProjectileEnemiesList.projectiles:
-            isInY = projectile.y > self.y and projectile.y < self.y + self.height - 5
-            isInX = projectile.x > self.x and projectile.x < self.x + self.width
+            isInY = projectile.y > self.y and projectile.y < self.y + Player.height - 5
+            isInX = projectile.x > self.x and projectile.x < self.x + Player.width
             if isInX and isInY:
+                ProjectileEnemiesList.remove(projectile)
                 self.lifes -= 1
 
 
