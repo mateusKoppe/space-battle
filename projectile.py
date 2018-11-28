@@ -37,3 +37,6 @@ class Projectile:
             self.y += self.speed
 
         self.render()
+
+    def speedUp():
+        Projectile.speed += 2

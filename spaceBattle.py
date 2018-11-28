@@ -2,9 +2,10 @@ import pygame
 
 from background import Background
 from player import Player
-from enemy import EnemiesList
+from ship import Ship
+from enemy import EnemiesList, Enemy
 from configs import gameConfigs
-from projectile import ProjectileList, ProjectileEnemiesList
+from projectile import ProjectileList, ProjectileEnemiesList, Projectile
 
 
 pygame.init()
@@ -16,10 +17,25 @@ screen = pygame.display.set_mode((gameConfigs["width"], gameConfigs["height"]))
 
 pygame.display.set_caption(gameConfigs["title"])
 
-fontSmall = pygame.font.Font("assets/fonts/bitcell.ttf", 20)
+fontSmall = pygame.font.Font("assets/fonts/bitcell.ttf", 30)
 fontLarge = pygame.font.Font("assets/fonts/bitcell.ttf", 200)
 
 run = True
+
+actualLevel = 1
+
+def handle_speed():
+    global actualLevel
+
+    time = pygame.time.get_ticks() // 1000
+    steep = time // gameConfigs["timeToIncreaseSpeed"]
+    print(steep)
+    if steep > actualLevel:
+        actualLevel += 1
+        if (Ship.speed <= gameConfigs["maxSpeed"]):
+            Ship.speedUp()
+            Enemy.speedUp()
+            Projectile.speedUp()
 
 player = Player(screen)
 EnemiesList.randomSpawn(screen)
@@ -32,7 +48,7 @@ while run:
         screen.blit(fontLarge.render("Venceu!", True, (255,255,255)), (gameConfigs["width"]/2 - 240, gameConfigs["height"]/2  - 100))
     
     elif player.lifes<=0:
-        pygame.mixer.music.load("assets/audios/gunshot2.mp3")
+        pygame.mixer.music.load("assets/audios/gunshot2.ogg")
         pygame.mixer.music.play()
         screen.blit(fontLarge.render("Perdeu!", True, (255,255,255)), (gameConfigs["width"]/2 - 240, gameConfigs["height"]/2  - 100))
     
@@ -44,14 +60,24 @@ while run:
         ProjectileEnemiesList.update()
         EnemiesList.update()
 
-    vidas = fontSmall.render("Vidas: "+str(player.lifes), True, (255,255,255))
-    screen.blit(vidas, (10,10))
+    
+    lifesImage = pygame.image.load("assets/images/lifes.png")
+    lifesText = fontSmall.render(": "+str(player.lifes), True, (255,255,255))
 
-    inimigos = fontSmall.render("Inimigos: "+str(len(EnemiesList.enemies)), True, (255,255,255))
-    screen.blit(inimigos, (10,25))
+    # screen.blit(lifesText, (45,110))
+    tam = 40
+    for i in range(player.lifes):
+        screen.blit(lifesImage, (800, tam))
+        tam += 30
+        
 
-    inimigos = fontSmall.render("Tempo: "+str(pygame.time.get_ticks()/1000), True, (255,255,255))
-    screen.blit(inimigos, (10,40))
+    enemiesText = fontSmall.render("Inimigos: "+str(len(EnemiesList.enemies)), True, (255,255,255))
+    # screen.blit(enemiesText, (10, 145))
+
+    timeText = fontSmall.render("Tempo: "+str(pygame.time.get_ticks()/1000), True, (255,255,255))
+    # screen.blit(timeText, (10, 160))
+
+    handle_speed()
 
     for event in pygame.event.get():
             if event.type == pygame.QUIT:

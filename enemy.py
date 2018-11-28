@@ -89,3 +89,7 @@ class Enemy(Ship):
         self.check_dead()
 
         super().update()
+    
+    def speedUp():
+        if (Ship.speed <= gameConfigs["maxSpeed"]):
+            Ship.speed += 1

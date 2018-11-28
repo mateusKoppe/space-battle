@@ -5,6 +5,7 @@ from configs import gameConfigs
 class Background:
     speedBackground = 0
     speedClouds = 0
+    speedY = 5
     positionX = -50
     positionY = -(4500-600)
     positionXClouds = -100
@@ -23,12 +24,12 @@ class Background:
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_LEFT]:
-            Background.speedBackground +=0.005
-            Background.speedClouds +=0.01
+            Background.speedBackground += 0.005
+            Background.speedClouds +=0.03
         
         if keys[pygame.K_RIGHT]:
-            Background.speedBackground -=0.005
-            Background.speedClouds -=0.01
+            Background.speedBackground -= 0.005
+            Background.speedClouds -=0.03
 
 
         if not keys[pygame.K_RIGHT] and not keys[pygame.K_LEFT]:
@@ -49,7 +50,7 @@ class Background:
             Background.positionY = -(4500-600)
 
         Background.positionX += Background.speedBackground
-        Background.positionY += 5
+        Background.positionY += Background.speedY
         Background.positionXClouds += Background.speedClouds
         Background.render(screen)
 

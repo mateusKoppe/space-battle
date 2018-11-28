@@ -23,3 +23,7 @@ class Ship:
 
     def render(self):
         self.screen.blit(self.image, (self.x, self.y))
+
+    def speedUp():
+        if (Ship.speed <= gameConfigs["maxSpeed"]):
+            Ship.speed += 1
