@@ -41,7 +41,7 @@ class Enemy(Ship):
             isInY = projectile.y > self.y and projectile.y < self.y + self.height - 5
             isInX = projectile.x > self.x and projectile.x < self.x + self.width
             if isInX and isInY:
-                pygame.mixer.music.load("assets/audios/explosion.mp3")
+                pygame.mixer.music.load("assets/audios/explosion.ogg")
                 pygame.mixer.music.play()
                 EnemiesList.remove(self)
 
@@ -68,7 +68,7 @@ class Enemy(Ship):
             EnemiesList.randomSpawn(self.screen)    
 
         if random.randint(0,1000) < 20:
-            pygame.mixer.music.load("assets/audios/gunshot2.mp3")
+            pygame.mixer.music.load("assets/audios/gunshot2.ogg")
             pygame.mixer.music.play()
             projectile = Projectile(self.screen, (self.x + self.width // 2, self.y), Projectile.DOWN)
             ProjectileEnemiesList.projectiles.append(projectile)

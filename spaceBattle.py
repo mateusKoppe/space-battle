@@ -29,7 +29,6 @@ def handle_speed():
 
     time = pygame.time.get_ticks() // 1000
     steep = time // gameConfigs["timeToIncreaseSpeed"]
-    print(steep)
     if steep > actualLevel:
         actualLevel += 1
         if (Ship.speed <= gameConfigs["maxSpeed"]):
